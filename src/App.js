@@ -64,8 +64,8 @@ function App() {
   const [nameFilter, setNameFilter] = useState('');
   const [showStatistics, setShowStatistics] = useState(false);
   const [statistics, setStatistics] = useState(null);
-  const [showOption, setShowOption] = useState('all'); // 'all', 'passed', or 'failed'
-  const [sortOption, setSortOption] = useState('none'); // 'none', 'alphabetical', 'gradeAsc', or 'gradeDesc'
+  const [showOption, setShowOption] = useState('all'); 
+  const [sortOption, setSortOption] = useState('none');
   const [selectedStudent, setSelectedStudent] = useState(null);
 
   const sortStudents = (studentsToSort, option) => {
@@ -82,7 +82,6 @@ function App() {
   };
 
   useEffect(() => {
-    // Calculate final grades and update student list
     const updatedStudents = students.map(student => {
       const finalGrade = parseFloat((0.6 * parseFloat(student.examGrade) + 0.4 * parseFloat(student.ratingGrade)).toFixed(2));
       const status = finalGrade >= 4 ? "Passed" : "Failed";
@@ -92,7 +91,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Filter students based on the entered name and selected show option
     let filteredList = students.filter(student => student.name.toLowerCase().includes(nameFilter.toLowerCase()));
     if (showOption === 'passed') {
       filteredList = filteredList.filter(student => student.status === 'Passed');
@@ -100,14 +98,13 @@ function App() {
       filteredList = filteredList.filter(student => student.status === 'Failed');
     }
 
-    // Sort the filtered students based on the selected sort option
+
     const sortedList = sortStudents(filteredList, sortOption);
 
     setFilteredStudents(sortedList);
   }, [nameFilter, students, showOption, sortOption]);
 
   useEffect(() => {
-    // Calculate statistics
     const totalStudents = students.length;
     const grades = students.map(student => student.finalGrade);
     const averageGrade = totalStudents > 0 ? (grades.reduce((total, grade) => total + grade, 0) / totalStudents).toFixed(2) : 0;
@@ -116,7 +113,7 @@ function App() {
     const passedStudents = students.filter(student => student.status === 'Passed').length;
     const failedStudents = totalStudents - passedStudents;
 
-    // Count the number of students that received a certain grade
+
     const gradeCounts = {};
     grades.forEach(grade => {
       const count = gradeCounts[grade] || 0;
@@ -156,12 +153,12 @@ function App() {
       status
     };
     addStudent(newStudent);
-    event.target.reset(); // Reset form fields
+    event.target.reset(); 
   };
 
   const toggleStatistics = () => {
     setShowStatistics(!showStatistics);
-    setSelectedStudent(null); // Reset selected student when toggling statistics
+    setSelectedStudent(null); 
   };
 
   const handleShowOptionChange = (option) => {
@@ -192,7 +189,7 @@ function App() {
 
       {/* Main block */}
       <main>
-        {/* Input form for adding new student data */}
+        
         <form onSubmit={handleSubmit} id="studentForm">
           <input type="text" placeholder="Name" name="name" required />
           <input type="text" placeholder="Ticket's Number" name="ticketNumber" required />
@@ -201,7 +198,7 @@ function App() {
           <button type="submit">Add Student</button>
         </form>
 
-        {/* Options for showing and sorting */}
+        
         <div className="options">
           <div>
             <label>Show:</label>
@@ -222,7 +219,7 @@ function App() {
           </div>
         </div>
 
-        {/* Table to display student data */}
+       
         <table id="studentTable">
           <thead>
             <tr>
@@ -251,13 +248,13 @@ function App() {
         </table>
         <div style={{ marginBottom: '50px' }}></div> {/* Adding space with margin */}
 
-        {/* Show statistics button */}
+       
         <button id="showStatisticsBtn" onClick={toggleStatistics}>
           {showStatistics ? 'Hide Statistics' : 'Show Statistics'}
         </button>
       </main>
 
-      {/* Statistics block */}
+     
       {showStatistics && (
         <div id="statisticsBlock" className="statistics-block">
           <h2>Statistics</h2>
@@ -302,7 +299,7 @@ function App() {
         </div>
       )}
 
-      {/* Footer */}
+     
     </div>
   );
 }
