@@ -179,9 +179,16 @@ function App() {
   return (
     <div className="App">
       {/* Header */}
-      <header>
-        <h1>Exam Information</h1>
-      </header>
+      <header className="exam-header">
+  <h1>Exam Information</h1>
+  <div className="exam-details">
+    <p><strong>Date:</strong> 06/04/24</p>
+    <p><strong>Professor's Name:</strong>M Jogendra Kumar</p>
+    <p><strong>College:</strong> KL University</p>
+    <p><strong>Department:</strong> Btech</p>
+    <p><strong>Semester:</strong> Even</p>
+  </div>
+</header>
 
       {/* Main block */}
       <main>
@@ -242,6 +249,7 @@ function App() {
             ))}
           </tbody>
         </table>
+        <div style={{ marginBottom: '50px' }}></div> {/* Adding space with margin */}
 
         {/* Show statistics button */}
         <button id="showStatisticsBtn" onClick={toggleStatistics}>
